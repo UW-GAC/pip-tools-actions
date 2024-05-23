@@ -6,7 +6,7 @@ on:
 
 jobs:
   pip-compile:
-    permissions:a
+    permissions:
       pull-requests: write
       contents: write
     runs-on: ubuntu-latest
