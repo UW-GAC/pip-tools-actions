@@ -17,6 +17,10 @@ runs:
       - name: Run pip-compile
         run: |
           echo $INPUT_REQUIREMENTS_FILES
+          for i in $sentence
+          do:
+            echo $i
+          done
         shell: bash
         env:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
