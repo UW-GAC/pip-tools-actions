@@ -18,7 +18,8 @@ runs:
         run: |
           for i in $INPUT_REQUIREMENTS_FILES
           do
-            echo $i
+            echo "Compiling $i"
+            pip-compile $i
           done
         shell: bash
         env:
