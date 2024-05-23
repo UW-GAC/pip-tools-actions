@@ -1,0 +1,33 @@
+name: "Run pip-compile"
+description: "Install pip-tools and run pip-compile on a set of requirements files."
+inputs:
+  requirements_files:
+    description: |-
+      The paths to the requirements files to compile. Files will be compiled
+      in the order they are listed. To specify multiple files, use the following
+      syntax:
+
+      requirements_files: |-
+        path/to/requirements1.txt
+        path/to/requirements2.txt
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+
+      - name: Run pip-compile
+        uses: UW-GAC/pip-tools-actions/run-pip-compile@main
+        with:
+          requirements_files: ${{ inputs.requirements_files }}
+
+      - name: Verify that no changes to requirements files
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to requirements files"
+            exit 0
+          else
+            echo "Changes to requirements files detected"
+            exit 1
+          fi
+        shell: bash
