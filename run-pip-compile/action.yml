@@ -16,9 +16,8 @@ runs:
       # Later, we can make this an input to the workflow.
       - name: Run pip-compile
         run: |
-          echo $INPUT_REQUIREMENTS_FILES
-          for i in $sentence
-          do:
+          for i in $INPUT_REQUIREMENTS_FILES
+          do
             echo $i
           done
         shell: bash
