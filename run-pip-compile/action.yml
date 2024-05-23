@@ -16,7 +16,7 @@ runs:
       # Later, we can make this an input to the workflow.
       - name: Run pip-compile
         run: |
-          echo $REQUIREMENTS_FILES
+          echo $INPUT_REQUIREMENTS_FILES
         shell: bash
         env:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
