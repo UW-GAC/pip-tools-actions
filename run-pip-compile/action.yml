@@ -17,11 +17,10 @@ runs:
       - name: Run pip-compile
         run: |
           echo ${{ inputs.requirements_files }}
-          pip-compile requirements/requirements.in
         shell: bash
 
-      - name: List changes
-        run: |
-          git status
-          git diff
-        shell: bash
+      # - name: List changes
+      #   run: |
+      #     git status
+      #     git diff
+      #   shell: bash
