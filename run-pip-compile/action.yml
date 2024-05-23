@@ -4,7 +4,6 @@ inputs:
   requirements_files:
     description: "The paths to the requirements files to compile. Files will be compiled in the order they are listed."
     required: true
-    default: ["requirements/requirements.in"]
 
 runs:
   using: "composite"
