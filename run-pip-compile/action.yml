@@ -11,14 +11,17 @@ runs:
         run: |
           python -m pip install --upgrade pip
           pip install pip-tools
+        shell: bash
 
       # For now, just run on a single file in a specific location.
       # Later, we can make this an input to the workflow.
       - name: Run pip-compile
         run: |
           pip-compile requirements/requirements.in
+        shell: bash
 
       - name: List changes
         run: |
           git status
           git diff
+        shell: bash
