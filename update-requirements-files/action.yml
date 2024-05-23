@@ -1,0 +1,33 @@
+name: "Update requirements files"
+description: "Run pip-compile and open a pull request to update the requirements files."
+inputs:
+  requirements_files:
+    description: |-
+      The paths to the requirements files to compile. Files will be compiled
+      in the order they are listed. To specify multiple files, use the following
+      syntax:
+
+      requirements_files: |-
+        path/to/requirements1.txt
+        path/to/requirements2.txt
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+
+      - name: Run pip-compile
+        uses: UW-GAC/pip-tools-actions/run-pip-compile@main
+        with:
+          requirements_files: ${{ inputs.requirements_files }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+            commit-message: Compile requirements files
+            title: Compile requirements files
+            body: Compile requirements files
+            labels: automated-pr, pip-compile
+            # Create a new branch each run.
+            branch: pip-tools/update-requirements-files-${{ github.run_id }}
+            add-paths: ${{ inputs.requirements_files }}
