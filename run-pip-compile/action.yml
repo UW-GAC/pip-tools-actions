@@ -9,8 +9,8 @@ runs:
   using: "composite"
   steps:
 
-      - name: Set up pip-tools
-        uses: UW-GAC/pip-tools-actions/setup-pip-tools@main
+      # - name: Set up pip-tools
+      #   uses: UW-GAC/pip-tools-actions/setup-pip-tools@main
 
       # For now, just run on a single file in a specific location.
       # Later, we can make this an input to the workflow.
