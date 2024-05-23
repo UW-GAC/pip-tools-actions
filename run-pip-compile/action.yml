@@ -3,15 +3,9 @@ description: "Install pip-tools and run pip-compile on a set of requirements fil
 on:
   workflow_call:
 
-
-jobs:
-  pip-compile:
-    permissions:
-      pull-requests: write
-      contents: write
-    runs-on: ubuntu-latest
-
-    steps:
+runs:
+  using: "composite"
+  steps:
 
       - name: Install pip-tools
         run: |
