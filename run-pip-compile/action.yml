@@ -1,5 +1,10 @@
 name: "Run pip-compile"
 description: "Install pip-tools and run pip-compile on a set of requirements files."
+inputs:
+  requirements_files:
+    description: "The paths to the requirements files to compile. Files will be compiled in the order they are listed."
+    required: true
+    default: ["requirements/requirements.in"]
 
 runs:
   using: "composite"
@@ -12,6 +17,7 @@ runs:
       # Later, we can make this an input to the workflow.
       - name: Run pip-compile
         run: |
+          echo {{ inputs.requirements_files }}
           pip-compile requirements/requirements.in
         shell: bash
 
