@@ -30,4 +30,3 @@ runs:
             labels: automated-pr, pip-compile
             # Create a new branch each run.
             branch: pip-tools/update-requirements-files-${{ github.run_id }}
-            add-paths: ${{ inputs.requirements_files }}
