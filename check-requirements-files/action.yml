@@ -1,5 +1,5 @@
-name: "Run pip-compile"
-description: "Install pip-tools and run pip-compile on a set of requirements files."
+name: "Check requirements files"
+description: "Set up pip-tools, recompile requirements files, and fail if there are changes."
 inputs:
   requirements_files:
     description: |-
