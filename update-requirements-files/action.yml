@@ -44,6 +44,7 @@ runs:
           requirements_files: ${{ inputs.requirements_files }}
 
       - name: Create Pull Request
+        id: create-pull-request
         uses: peter-evans/create-pull-request@v6
         with:
             commit-message: ${{ inputs.pr-commit-message }}
@@ -52,3 +53,12 @@ runs:
             labels: ${{ inputs.pr-labels }}
             # Create a new branch for each pull request.
             branch: pip-tools/update-requirements-files/${{ inputs.pr-branch-suffix }}
+
+      - name: "Fail if there are changes to requirements files"
+        if: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}"
+        run: |
+          echo "Changes to requirements files detected"
+          echo "Please merge pull request to resolve:"
+          echo "{{ steps.create-pull-request.outputs.pull-request-url }}"
+          exit 1
+        shell: bash
