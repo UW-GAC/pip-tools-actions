@@ -49,7 +49,9 @@ runs:
       - name: Symlink current action repo
         env:
           action_path: ${{ github.action_path }}
-        run: ln -fs ${{ env.action_path }}/.. .github/.action_repo
+        run: |
+          if [[!  -d .github/.action_repo ]]; then ln -fs ${{ env.action_path }}/.. .github/.action_repo; fi
+
         shell: bash
 
       - name: Run pip-compile
