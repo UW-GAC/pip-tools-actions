@@ -11,6 +11,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+outputs:
+  files_changed:
+    description: "A flag indicating whether the requirements files have changed."
+    value: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}
 
 runs:
   using: "composite"

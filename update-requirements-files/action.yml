@@ -39,6 +39,7 @@ runs:
   steps:
 
       - name: Run pip-compile
+        id: run-pip-compile
         uses: UW-GAC/pip-tools-actions/run-pip-compile@main
         with:
           requirements_files: ${{ inputs.requirements_files }}
@@ -56,8 +57,8 @@ runs:
 
       - name: "Fail if there are changes to requirements files"
         run: |
-          echo "${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}"
-          if [[ "${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}" == "1" ]]; then
+          echo "${{ steps.run-pip-compile.outputs.FILES_CHANGED }}"
+          if [[ "${{ steps.run-pip-compile.outputs.FILES_CHANGED }}" == "1" ]]; then
             echo "Changes to requirements files detected"
             echo "Please merge pull request to resolve:"
             echo "${{ steps.create-pull-request.outputs.pull-request-url }}"
