@@ -27,6 +27,9 @@ inputs:
     description: "The labels to apply to the pull request."
     required: false
     default: "automated-pr, update-requirements-files"
+  pr-branch-suffix:
+    description: "A suffix to append to the branch name."
+    required: true
 
 runs:
   using: "composite"
@@ -45,4 +48,4 @@ runs:
             body: ${{ inputs.pr-body }}
             labels: ${{ inputs.pr-labels }}
             # Create a new branch each run.
-            branch: pip-tools/update-requirements-files-${{ inputs.pr-base }}
+            branch: pip-tools/update-requirements-files/${{ inputs.pr-branch-suffix }}
