@@ -17,12 +17,14 @@ runs:
   steps:
 
       - name: Run pip-compile
-        id: pip-compile
+        id: run-pip-compile
         uses: UW-GAC/pip-tools-actions/run-pip-compile@main
         with:
           requirements_files: ${{ inputs.requirements_files }}
 
-      - name: Fail if there are changes to the files
-        if: steps.pip-compile.outputs.FILES_CHANGED
-        run: exit 1
+      - name: "Fail if there are changes to requirements files"
+        if: steps.run-pip-compile.outputs.FILES_CHANGED == '1'
+        run: |
+          echo "Changes to requirements files detected"
+          exit 1
         shell: bash
