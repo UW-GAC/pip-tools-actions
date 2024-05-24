@@ -27,10 +27,6 @@ inputs:
     description: "The labels to apply to the pull request."
     required: false
     default: "automated-pr, update-requirements-files"
-  pr-base:
-    description: "The base branch to open the pull request against."
-    required: false
-    default: "main"
 
 runs:
   using: "composite"
@@ -48,6 +44,5 @@ runs:
             title: ${{ inputs.pr-title }}
             body: ${{ inputs.pr-body }}
             labels: ${{ inputs.pr-labels }}
-            base: ${{ inputs.pr_base }}
             # Create a new branch each run.
-            branch: pip-tools/update-requirements-files-${{ github.run_id }}
+            branch: pip-tools/update-requirements-files-${{ inputs.pr-base }}
