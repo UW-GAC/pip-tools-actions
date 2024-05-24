@@ -45,7 +45,7 @@ runs:
             fi
           }
 
-          echo "changed=$(check) >> $GITHUB_OUTPUT"
+          echo "FILES_CHANGED=$(check)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: List changes
@@ -56,5 +56,5 @@ runs:
 
       - name: "Test printing output"
         run: |
-          echo "Changed: ${{ steps.pip-compile-changes.outputs.changed }}"
+          echo "Changed: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}"
         shell: bash
