@@ -31,6 +31,11 @@ runs:
           if [[!  -d .github/.action_repo ]]; then ln -fs ${{ env.action_path }}/.. .github/.action_repo; fi
         shell: bash
 
+      - name: List symlink contents
+        run: |
+          tree
+        shell: bash
+
       - name: Run pip-compile
         id: run-pip-compile
         uses: ./.github/.action_repo/run-pip-compile
