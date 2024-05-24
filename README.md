@@ -52,7 +52,7 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Check requirements files
+      - name: Run pip-compile
         uses: UW-GAC/pip-tools-actions/run-pip-compile@v1
         with:
           requirements_files:  |-
