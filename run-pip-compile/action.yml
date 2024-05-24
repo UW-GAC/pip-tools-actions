@@ -54,6 +54,7 @@ runs:
           git diff
         shell: bash
 
-      name: "Test printing output"
-      run: |
-        echo "Changed: ${{ steps.pip-compile-changes.outputs.changed }}"
+      - name: "Test printing output"
+        run: |
+          echo "Changed: ${{ steps.pip-compile-changes.outputs.changed }}"
+        shell: bash
