@@ -11,6 +11,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-tools-version:
+    description: "The version of pip-tools to install. If not specified, the most recent version will be installed."
+    required: false
+    default: ""
   pip-compile-args:
     description: "Additional arguments to pass to pip-compile."
     required: false
@@ -26,6 +30,8 @@ runs:
 
       - name: Set up pip-tools
         uses: UW-GAC/pip-tools-actions/setup-pip-tools@main
+        with:
+          pip-tools-version: ${{ inputs.pip-tools-version }}
 
       # For now, just run on a single file in a specific location.
       # Later, we can make this an input to the workflow.
@@ -40,7 +46,7 @@ runs:
         shell: bash
         env:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
-          INPUTS_PIP_COPMILE_ARGS: ${{ inputs.pip_compile_args }}
+          INPUTS_PIP_COMPILE_ARGS: ${{ inputs.pip_compile_args }}
 
       - name: Set output
         id: pip-compile-changes

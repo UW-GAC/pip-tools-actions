@@ -11,6 +11,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-tools-version:
+    description: "The version of pip-tools to install. If not specified, the most recent version will be installed."
+    required: false
+    default: ""
   pip-compile-args:
     description: "Additional arguments to pass to pip-compile."
     required: false
@@ -25,6 +29,8 @@ runs:
         uses: UW-GAC/pip-tools-actions/run-pip-compile@main
         with:
           requirements_files: ${{ inputs.requirements_files }}
+          pip-tools-version: ${{ inputs.pip-tools-version }}
+          pip-compile-args: ${{ inputs.pip_compile_args }}
 
       - name: "Fail if there are changes to requirements files"
         if: steps.run-pip-compile.outputs.FILES_CHANGED == '1'
