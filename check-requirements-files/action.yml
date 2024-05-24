@@ -11,6 +11,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-compile-args:
+    description: "Additional arguments to pass to pip-compile."
+    required: false
+    default: ""
 
 runs:
   using: "composite"

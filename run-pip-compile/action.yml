@@ -11,6 +11,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-compile-args:
+    description: "Additional arguments to pass to pip-compile."
+    required: false
+    default: ""
 outputs:
   files_changed:
     description: "A flag indicating whether the requirements files have changed."
@@ -31,11 +35,12 @@ runs:
           for i in $INPUT_REQUIREMENTS_FILES
           do
             echo "Compiling $i"
-            pip-compile $i
+            pip-compile $INPUT_PIP_COMPILE_ARGS $i
           done
         shell: bash
         env:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
+          INPUTS_PIP_COPMILE_ARGS: ${{ inputs.pip_compile_args }}
 
       - name: Set output
         id: pip-compile-changes
