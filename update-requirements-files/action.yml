@@ -18,7 +18,7 @@ inputs:
   pr-title:
     description: "The title to use for the pull request."
     required: false
-    default: "Compile requirements files"
+    default: "Update requirements files"
   pr-body:
     description: "The body to use for the pull request."
     required: false
@@ -26,7 +26,7 @@ inputs:
   pr-labels:
     description: "The labels to apply to the pull request."
     required: false
-    default: "automated-pr, pip-compile"
+    default: "automated-pr, update-requirements-files"
   pr-base:
     description: "The base branch to open the pull request against."
     required: false
