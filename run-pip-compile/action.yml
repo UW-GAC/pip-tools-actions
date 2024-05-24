@@ -28,8 +28,14 @@ runs:
   using: "composite"
   steps:
 
+      - name: Symlink current action repo
+        env:
+          action_path: ${{ github.action_path }}
+        run: ln -fs ${{ env.action_path }}/.. .github/.action_repo
+        shell: bash
+
       - name: Set up pip-tools
-        uses: ./setup-pip-tools
+        uses: ./.github/.action_repo/setup-pip-tools
         with:
           pip-tools-version: ${{ inputs.pip-tools-version }}
 

@@ -46,9 +46,15 @@ runs:
   using: "composite"
   steps:
 
+      - name: Symlink current action repo
+        env:
+          action_path: ${{ github.action_path }}
+        run: ln -fs ${{ env.action_path }}/.. .github/.action_repo
+        shell: bash
+
       - name: Run pip-compile
         id: run-pip-compile
-        uses: ./run-pip-compile
+        uses: ./.github/.action_repo/run-pip-compile
         with:
           requirements_files: ${{ inputs.requirements_files }}
           pip-tools-version: ${{ inputs.pip-tools-version }}
