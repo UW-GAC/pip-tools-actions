@@ -17,17 +17,12 @@ runs:
   steps:
 
       - name: Run pip-compile
+        id: run-pip-compile
         uses: UW-GAC/pip-tools-actions/run-pip-compile@main
         with:
           requirements_files: ${{ inputs.requirements_files }}
 
-      - name: Verify that no changes to requirements files
-        run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "No changes to requirements files"
-            exit 0
-          else
-            echo "Changes to requirements files detected"
-            exit 1
-          fi
+      - name: Fail if there are changes to the files
+        if: steps.run-pip-compile.outputs.FILES_CHANGED
+        run: exit 1
         shell: bash
