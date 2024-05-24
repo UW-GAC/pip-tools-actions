@@ -17,14 +17,12 @@ runs:
           then
             echo "using latest version of pip-tools";
           else
-            echo "==${{ inputs.pip-tools-version }}" >> $GITHUB_OUTPUT;
+            echo "PIP_TOOLS_VERSION==${{ inputs.pip-tools-version }}" >> $GITHUB_OUTPUT;
           fi
         shell: bash
 
       - name: Install pip-tools
         run: |
           python -m pip install --upgrade pip
-          pip install pip-tools
+          pip install pip-tools${{ outputs.get-pip-tools-version-suffix.PIP_TOOLS_VERSION }}
         shell: bash
-        env:
-          PIP_TOOLS_VERSION: ${{ inputs.pip-tools-version }}
