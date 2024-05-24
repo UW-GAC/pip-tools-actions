@@ -43,6 +43,12 @@ runs:
         with:
           requirements_files: ${{ inputs.requirements_files }}
 
+
+      - name: Print CHANGED output for testing (update-requirements-files)
+        run: |
+          echo "FILES_CHANGED: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}"
+        shell: bash
+
       - name: Create Pull Request
         if: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }} == 1
         id: create-pull-request
