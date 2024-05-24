@@ -59,6 +59,6 @@ runs:
         run: |
           echo "Changes to requirements files detected"
           echo "Please merge pull request to resolve:"
-          echo "{{ steps.create-pull-request.outputs.pull-request-url }}"
+          echo "${{ steps.create-pull-request.outputs.pull-request-url }}"
           exit 1
         shell: bash
