@@ -79,6 +79,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-compile-args:
+    description: "Additional arguments to pass to pip-compile."
+    required: false
+    default: ""
 ```
 
 ## check-requirements-files
@@ -131,6 +135,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-compile-args:
+    description: "Additional arguments to pass to pip-compile."
+    required: false
+    default: ""
 ```
 
 ## update-requirements-files
@@ -193,6 +201,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-compile-args:
+    description: "Additional arguments to pass to pip-compile."
+    required: false
+    default: ""
   pr-commit-message:
     description: "The commit message to use for the pull request."
     required: false
