@@ -26,7 +26,7 @@ runs:
 
       - name: Run pip-compile
         id: run-pip-compile
-        uses: UW-GAC/pip-tools-actions/run-pip-compile@main
+        uses: ./run-pip-compile
         with:
           requirements_files: ${{ inputs.requirements_files }}
           pip-tools-version: ${{ inputs.pip-tools-version }}

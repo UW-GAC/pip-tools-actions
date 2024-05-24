@@ -29,7 +29,7 @@ runs:
   steps:
 
       - name: Set up pip-tools
-        uses: UW-GAC/pip-tools-actions/setup-pip-tools@main
+        uses: ./setup-pip-tools
         with:
           pip-tools-version: ${{ inputs.pip-tools-version }}
 
