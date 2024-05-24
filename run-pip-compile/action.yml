@@ -22,6 +22,7 @@ runs:
       # For now, just run on a single file in a specific location.
       # Later, we can make this an input to the workflow.
       - name: Run pip-compile
+        id: run-pip-compile
         run: |
           for i in $INPUT_REQUIREMENTS_FILES
           do
@@ -32,8 +33,27 @@ runs:
         env:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
 
+      - name: Set output
+        id: pip-compile-changes
+        run: |
+          function check() {
+            if [[ -z "$(git status --porcelain $STATUS_ARGS $PATHSPEC)" ]];
+            then
+              echo "0"
+            else
+              echo "1"
+            fi
+          }
+
+          echo "name=changed::$(check) >> $GITHUB_OUTPUT"
+        shell: bash
+
       - name: List changes
         run: |
           git status
           git diff
         shell: bash
+
+      name: "Test printing output"
+      run: |
+        echo "Changed: ${{ steps.pip-compile-changes.outputs.changed }}"

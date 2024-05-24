@@ -1,5 +1,8 @@
 name: "Update requirements files"
-description: "Run pip-compile and open a pull request to update the requirements files."
+description: |-
+  Run pip-compile and open a pull request to update the requirements files.
+
+  Note: when using this action with on: pull_request, you should check out the head_ref.
 inputs:
   requirements_files:
     description: |-
@@ -47,5 +50,5 @@ runs:
             title: ${{ inputs.pr-title }}
             body: ${{ inputs.pr-body }}
             labels: ${{ inputs.pr-labels }}
-            # Create a new branch each run.
+            # Create a new branch for each pull request.
             branch: pip-tools/update-requirements-files/${{ inputs.pr-branch-suffix }}
