@@ -140,6 +140,8 @@ If there are any changes detected to the requirements files, the job will open a
 
 It is intended to be used in a workflow that runs on a pull request event.
 
+The name of the branch that is opened is of the format: `pip-tools-actions/update-requirements-files/<pr-branch-suffix>`.
+
 Example usage:
 
 ```
