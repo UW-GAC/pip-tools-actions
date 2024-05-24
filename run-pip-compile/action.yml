@@ -32,7 +32,7 @@ runs:
         env:
           action_path: ${{ github.action_path }}
         run: |
-          if [[!  -d .github/.action_repo ]]; then ln -fs ${{ env.action_path }}/.. .github/.action_repo; fi
+          if [[ ! -d .github/.action_repo ]]; then ln -fs ${{ env.action_path }}/.. .github/.action_repo; fi
         shell: bash
 
       - name: Set up pip-tools
