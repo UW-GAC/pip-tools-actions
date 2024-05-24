@@ -49,13 +49,8 @@ runs:
         shell: bash
 
       - name: List changes
-        if: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}"
+        if: steps.pip-compile-changes.outputs.FILES_CHANGED
         run: |
           git status
           git diff
-        shell: bash
-
-      - name: Print CHANGED output for testing
-        run: |
-          echo "FILES_CHANGED: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}"
         shell: bash
