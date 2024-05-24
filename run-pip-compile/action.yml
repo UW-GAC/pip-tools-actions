@@ -33,6 +33,7 @@ runs:
           action_path: ${{ github.action_path }}
         run: |
           if [[!  -d .github/.action_repo ]]; then ln -fs ${{ env.action_path }}/.. .github/.action_repo; fi
+        shell: bash
 
       - name: Set up pip-tools
         uses: ./.github/.action_repo/setup-pip-tools
