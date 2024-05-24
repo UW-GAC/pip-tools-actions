@@ -45,7 +45,7 @@ runs:
             fi
           }
 
-          echo "name=changed::$(check) >> $GITHUB_OUTPUT"
+          echo "changed=$(check) >> $GITHUB_OUTPUT"
         shell: bash
 
       - name: List changes
