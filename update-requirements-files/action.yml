@@ -44,6 +44,7 @@ runs:
           requirements_files: ${{ inputs.requirements_files }}
 
       - name: Create Pull Request
+        if: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}
         id: create-pull-request
         uses: peter-evans/create-pull-request@v6
         with:
