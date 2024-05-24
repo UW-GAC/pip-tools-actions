@@ -30,6 +30,16 @@ jobs:
 
 You will need to set up python before running this action.
 
+### Inputs
+
+```
+inputs:
+  pip-tools-version:
+    description: "The version of pip-tools to install. If not specified, the most recent version will be installed."
+    required: false
+    default: ""
+```
+
 ## run-pip-compile
 
 This action sets up pip-tools and runs pip-compile.
@@ -79,6 +89,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-tools-version:
+    description: "The version of pip-tools to install. If not specified, the most recent version will be installed."
+    required: false
+    default: ""
   pip-compile-args:
     description: "Additional arguments to pass to pip-compile."
     required: false
@@ -135,6 +149,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-tools-version:
+    description: "The version of pip-tools to install. If not specified, the most recent version will be installed."
+    required: false
+    default: ""
   pip-compile-args:
     description: "Additional arguments to pass to pip-compile."
     required: false
@@ -201,6 +219,10 @@ inputs:
         path/to/requirements1.txt
         path/to/requirements2.txt
     required: true
+  pip-tools-version:
+    description: "The version of pip-tools to install. If not specified, the most recent version will be installed."
+    required: false
+    default: ""
   pip-compile-args:
     description: "Additional arguments to pass to pip-compile."
     required: false
