@@ -45,7 +45,7 @@ runs:
           requirements_files: ${{ inputs.requirements_files }}
 
       - name: Create Pull Request
-        if: ${{ steps.run-pip-compile.outputs.FILES_CHANGED }} == 1
+        if: ${{ steps.run-pip-compile.outputs.FILES_CHANGED == "1" }}
         id: create-pull-request
         uses: peter-evans/create-pull-request@v6
         with:
@@ -57,7 +57,7 @@ runs:
             branch: pip-tools/update-requirements-files/${{ inputs.pr-branch-suffix }}
 
       - name: "Fail if there are changes to requirements files"
-        if: ${{ steps.run-pip-compile.outputs.FILES_CHANGED }} == 1
+        if: ${{ steps.run-pip-compile.outputs.FILES_CHANGED == "1" }}
         run: |
           echo "Changes to requirements files detected"
           echo "Please merge pull request to resolve:"
