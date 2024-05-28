@@ -65,6 +65,7 @@ runs:
         id: prep-output-files
         run: |
           # Replace spaces with commas
+          echo "${{ steps.run-pip-compile.outputs.OUTPUT_FILES }}"
           output_files_pr="${${{ steps.run-pip-compile.outputs.OUTPUT_FILES }}// /","}"
           echo $output_files_pr
           echo "OUTPUT_FILES_PR=${output_files_pr}" >> $GITHUB_OUTPUT
