@@ -47,7 +47,7 @@ runs:
       - name: "debugging"
         run: |
           echo "CHANGES_DETECTED: ${{ steps.run-pip-compile.outputs.CHANGES_DETECTED }}"
-          echo "FILES_CHANGED: ${{ steps.run-pip-compile.outputs.FILES_CHANGED }}"
+          echo "OUTPUT_FILES: ${{ steps.run-pip-compile.outputs.OUTPUT_FILES }}"
         shell: bash
 
       - name: "Fail if there are changes to requirements files"
