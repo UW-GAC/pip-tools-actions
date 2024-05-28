@@ -55,7 +55,7 @@ runs:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
           INPUTS_PIP_COMPILE_ARGS: ${{ inputs.pip_compile_args }}
 
-      - Get names of output files from pip-compile
+      - name: Get names of output files from pip-compile
         id: get-output-files
         run: |
           output_files=()
