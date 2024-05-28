@@ -63,7 +63,7 @@ runs:
           do
             output_files+=("${file%.in}.txt")
           done
-          echo "OUTPUT_FILES=${new_files[@]}" >> $GITHUB_OUTPUT
+          echo "OUTPUT_FILES=${output_files[@]}" >> $GITHUB_OUTPUT
         shell: bash
         env:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
