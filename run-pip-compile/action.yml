@@ -22,7 +22,7 @@ inputs:
 outputs:
   files_changed:
     description: "A flag indicating whether the requirements files have changed."
-    value: ${{ steps.pip-compile-changes.outputs.FILES_CHANGED }}
+    value: ${{ steps.pip-compile-changes.outputs.CHANGES_DETECTED }}
 
 runs:
   using: "composite"
@@ -60,11 +60,24 @@ runs:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
           INPUTS_PIP_COMPILE_ARGS: ${{ inputs.pip_compile_args }}
 
+      - Get names of output files from pip-compile
+        id: get-output-files
+        run: |
+          output_files=()
+          for file in $INPUT_REQUIREMENTS_FILES
+          do
+            output_files+=("${file%.in}.txt")
+          done
+          echo "OUTPUT_FILES=${new_files[@]}" >> $GITHUB_OUTPUT
+        shell: bash
+        env:
+          INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
+
       - name: Set output
         id: pip-compile-changes
         run: |
           function check() {
-            if [[ -z "$(git status --porcelain $STATUS_ARGS $PATHSPEC)" ]];
+            if [[ -z "$(git status --porcelain  ${{ steps.pip-compile-changes.outputs.OUTPUT_FILES}} $STATUS_ARGS $PATHSPEC)" ]];
             then
               echo "0"
             else
@@ -72,12 +85,12 @@ runs:
             fi
           }
 
-          echo "FILES_CHANGED=$(check)" >> $GITHUB_OUTPUT
+          echo "CHANGES_DETECTED=$(check)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: List changes
-        if: steps.pip-compile-changes.outputs.FILES_CHANGED
+        if: steps.pip-compile-changes.outputs.CHANGES_DETECTED
         run: |
-          git status
+          git status ${{ steps.pip-compile-changes.outputs.OUTPUT_FILES}}
           git diff
         shell: bash
