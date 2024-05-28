@@ -61,6 +61,14 @@ runs:
           pip-tools-version: ${{ inputs.pip-tools-version }}
           pip-compile-args: ${{ inputs.pip_compile_args }}
 
+      - name: Prep output files for pull request
+        id: prep-output-files
+        run: |
+          # Replace spaces with commas
+          output_files_pr="${${{ steps.run-pip-compile.outputs.OUTPUT_FILES }}// /","}"
+          echo "OUTPUT_FILES_PR=${output_files_pr}" >> $GITHUB_OUTPUT
+        shell: bash
+
       - name: Create Pull Request
         if: steps.run-pip-compile.outputs.CHANGES_DETECTED == '1'
         id: create-pull-request
@@ -72,7 +80,7 @@ runs:
             labels: ${{ inputs.pr-labels }}
             # Create a new branch for each pull request.
             branch: pip-tools/update-requirements-files/${{ inputs.pr-branch-suffix }}
-            add-paths: ${{ steps.run-pip-compile.outputs.OUTPUT_FILES }}
+            add-paths: ${{ steps.prep-output-files.outputs.OUTPUT_FILES_PR }}
 
       - name: "Fail if there are changes to requirements files"
         if: steps.run-pip-compile.outputs.CHANGES_DETECTED == '1'
