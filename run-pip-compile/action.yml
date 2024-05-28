@@ -72,7 +72,7 @@ runs:
         id: pip-compile-changes
         run: |
           function check() {
-            if [[ -z "$(git status --porcelain  ${{ steps.pip-compile-changes.outputs.OUTPUT_FILES}} $STATUS_ARGS $PATHSPEC)" ]];
+            if [[ -z "$(git status --porcelain  ${{ steps.get-output-files.outputs.OUTPUT_FILES}})" ]];
             then
               echo "0"
             else
@@ -86,6 +86,6 @@ runs:
       - name: List changes
         if: steps.pip-compile-changes.outputs.CHANGES_DETECTED
         run: |
-          git status ${{ steps.pip-compile-changes.outputs.OUTPUT_FILES}}
+          git status ${{ steps.get-output-files.outputs.OUTPUT_FILES}}
           git diff
         shell: bash
