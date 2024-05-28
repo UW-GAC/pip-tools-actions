@@ -44,6 +44,12 @@ runs:
           pip-tools-version: ${{ inputs.pip-tools-version }}
           pip-compile-args: ${{ inputs.pip_compile_args }}
 
+      - name: "debugging"
+        run: |
+          echo "CHANGES_DETECTED: ${{ steps.run-pip-compile.outputs.CHANGES_DETECTED }}"
+          echo "FILES_CHANGED: ${{ steps.run-pip-compile.outputs.FILES_CHANGED }}"
+        shell: bash
+
       - name: "Fail if there are changes to requirements files"
         if: steps.run-pip-compile.outputs.CHANGES_DETECTED == '1'
         run: |
