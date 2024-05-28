@@ -28,6 +28,11 @@ runs:
   using: "composite"
   steps:
 
+      - name: Print out current environment
+        run: |
+          env
+        shell: bash
+
       - name: Symlink current action repo
         env:
           action_path: ${{ github.action_path }}
