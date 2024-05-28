@@ -69,7 +69,7 @@ runs:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
 
       - name: Set output
-        id: pip-compile-changes
+        id: detect-changes
         run: |
           function check() {
             if [[ -z "$(git status --porcelain  ${{ steps.get-output-files.outputs.OUTPUT_FILES}})" ]];
@@ -84,7 +84,7 @@ runs:
         shell: bash
 
       - name: List changes
-        if: steps.pip-compile-changes.outputs.CHANGES_DETECTED
+        if: steps.detect-changes.outputs.CHANGES_DETECTED
         run: |
           git status ${{ steps.get-output-files.outputs.OUTPUT_FILES}}
           git diff
