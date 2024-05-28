@@ -46,16 +46,33 @@ runs:
   using: "composite"
   steps:
 
+      - name: Symlink current action repo
+        env:
+          action_path: ${{ github.action_path }}
+        run: |
+          if [[ ! -d .github/.action_repo ]]; then ln -fs ${{ env.action_path }}/.. .github/.action_repo; fi
+        shell: bash
+
       - name: Run pip-compile
         id: run-pip-compile
-        uses: UW-GAC/pip-tools-actions/run-pip-compile@main
+        uses: ./.github/.action_repo/run-pip-compile
         with:
           requirements_files: ${{ inputs.requirements_files }}
           pip-tools-version: ${{ inputs.pip-tools-version }}
           pip-compile-args: ${{ inputs.pip_compile_args }}
 
+      - name: Prep output files for pull request
+        id: prep-output-files
+        run: |
+          # Replace spaces with commas
+          output_files="${{ steps.run-pip-compile.outputs.OUTPUT_FILES }}"
+          output_files_pr="${output_files// /","}"
+          echo $output_files_pr
+          echo "OUTPUT_FILES_PR=${output_files_pr}" >> $GITHUB_OUTPUT
+        shell: bash
+
       - name: Create Pull Request
-        if: steps.run-pip-compile.outputs.FILES_CHANGED == '1'
+        if: steps.run-pip-compile.outputs.CHANGES_DETECTED == '1'
         id: create-pull-request
         uses: peter-evans/create-pull-request@v6
         with:
@@ -65,9 +82,10 @@ runs:
             labels: ${{ inputs.pr-labels }}
             # Create a new branch for each pull request.
             branch: pip-tools/update-requirements-files/${{ inputs.pr-branch-suffix }}
+            add-paths: ${{ steps.prep-output-files.outputs.OUTPUT_FILES_PR }}
 
-      - name: "Fail if there are changes to requirements files"
-        if: steps.run-pip-compile.outputs.FILES_CHANGED == '1'
+      - name: Fail if there are changes to requirements files
+        if: steps.run-pip-compile.outputs.CHANGES_DETECTED == '1'
         run: |
           echo "Changes to requirements files detected"
           echo "Please merge pull request to resolve:"

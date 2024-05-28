@@ -24,16 +24,23 @@ runs:
   using: "composite"
   steps:
 
+      - name: Symlink current action repo
+        env:
+          action_path: ${{ github.action_path }}
+        run: |
+          if [[ ! -d .github/.action_repo ]]; then ln -fs ${{ env.action_path }}/.. .github/.action_repo; fi
+        shell: bash
+
       - name: Run pip-compile
         id: run-pip-compile
-        uses: UW-GAC/pip-tools-actions/run-pip-compile@main
+        uses: ./.github/.action_repo/run-pip-compile
         with:
           requirements_files: ${{ inputs.requirements_files }}
           pip-tools-version: ${{ inputs.pip-tools-version }}
           pip-compile-args: ${{ inputs.pip_compile_args }}
 
       - name: "Fail if there are changes to requirements files"
-        if: steps.run-pip-compile.outputs.FILES_CHANGED == '1'
+        if: steps.run-pip-compile.outputs.CHANGES_DETECTED == '1'
         run: |
           echo "Changes to requirements files detected"
           exit 1
