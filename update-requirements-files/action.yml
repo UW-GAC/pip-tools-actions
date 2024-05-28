@@ -84,7 +84,7 @@ runs:
             branch: pip-tools/update-requirements-files/${{ inputs.pr-branch-suffix }}
             add-paths: ${{ steps.prep-output-files.outputs.OUTPUT_FILES_PR }}
 
-      - name: "Fail if there are changes to requirements files"
+      - name: Fail if there are changes to requirements files
         if: steps.run-pip-compile.outputs.CHANGES_DETECTED == '1'
         run: |
           echo "Changes to requirements files detected"

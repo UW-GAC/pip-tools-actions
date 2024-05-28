@@ -71,7 +71,7 @@ runs:
         env:
           INPUT_REQUIREMENTS_FILES: ${{ inputs.requirements_files }}
 
-      - name: Set output
+      - name: Detect if any changes were made to requirements files
         id: detect-changes
         run: |
           function check() {
