@@ -32,11 +32,11 @@ runs:
         env:
           action_path: ${{ github.action_path }}
         run: |
-          if [[!  -d /home/runner/work/_actions/current ]]; then ln -fs $(realpath ../)  /home/runner/work/_actions/current; fi
+          if [[ ! -d ../.action_repo ]]; then ln -fs ${{ env.action_path }}/.. ../.action_repo; fi
         shell: bash
 
       - name: Set up pip-tools
-        uses: ./../../_actions/current/setup-pip-tools
+        uses: ../.action_repo/setup-pip-tools
         with:
           pip-tools-version: ${{ inputs.pip-tools-version }}
 
