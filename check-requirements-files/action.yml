@@ -28,7 +28,7 @@ runs:
         env:
           action_path: ${{ github.action_path }}
         run: |
-          if [[!  -d /home/runner/work/_actions/current ]]; then ln -fs $(realpath ../)  /home/runner/work/_actions/current; fi
+          if [[ ! -d /home/runner/work/_actions/current ]]; then ln -fs $(realpath ../)  /home/runner/work/_actions/current; fi
         shell: bash
 
       - name: Run pip-compile
