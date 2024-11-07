@@ -27,6 +27,6 @@ runs:
         # The latest version of pip and pip-tools creates absolute paths instead of relative paths
         # when compiling requirements files.
         run: |
-          pip install --upgrade pip==24.3
+          pip install --upgrade pip==24.2
           pip install ${{ steps.get-pip-tools-version-suffix.outputs.PIP_TOOLS_VERSION }}
         shell: bash
