@@ -1,4 +1,4 @@
-name: "Run pip-compile"
+name: "Set up pip-tools"
 description: "Install pip-tools and run pip-compile on a set of requirements files."
 inputs:
   pip-tools-version:
@@ -24,7 +24,9 @@ runs:
         shell: bash
 
       - name: Install pip-tools
+        # The latest version of pip and pip-tools creates absolute paths instead of relative paths
+        # when compiling requirements files.
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip==24.3
           pip install ${{ steps.get-pip-tools-version-suffix.outputs.PIP_TOOLS_VERSION }}
         shell: bash
